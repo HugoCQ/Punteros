@@ -3,37 +3,44 @@
 #include <stdbool.h>
 #include <string.h>
 
-struct datos
+
+struct nodo
 {
-    char *nombre;
-    char *rut;
-    char *direccion;
-    int  telefono;
+    int dato;
+    struct nodo *sgte;
 };
 
-
-int main()
+//typedef struct nodo Nodo;
+struct nodo *crea()
 {
-    int b;
-    struct datos g;
-    b=21480;
+    struct nodo *Lista;
+    Lista = malloc(sizeof(struct nodo));
+    Lista->dato=0;
+    Lista->sgte=NULL;
+    return Lista;
+}
 
-    g.nombre = malloc(sizeof(char)*10);
-    g.rut = malloc(sizeof(char)*15);
-    g.direccion = malloc(sizeof(char)*32);
-    g.nombre = "he";
-    g.rut = "1233";
-    g.direccion = "13231";
-    g.telefono = 32131;
+int main(void)
+{
+    int input;
+    struct nodo *L;
+    L=crea();
+    printf("Ingrese un numero:");
+    scanf("%i",&input);
+    L->dato=input;
+    L->sgte=crea();
+    L->sgte->dato=input*3;
 
-    printf("- %s \n- %s \n- %s \n- %i",g.nombre,g.rut,g.direccion,g.telefono);
-    free(g.nombre);
-    free(g.rut);
-    free(g.direccion);
-    if(true==1)
-    {
-        printf("%i\n",b);
-    }
+    L->sgte->sgte=crea();
+    L->sgte->sgte->dato=input*4;
+
+    printf("%i\n",L->dato);
+    printf("%i\n",L->sgte->dato);
+    printf("%i\n",L->sgte->sgte->dato);
+
+    free(L->sgte->sgte);
+    free(L->sgte);
+    free(L);
     
     return 0;
 }
